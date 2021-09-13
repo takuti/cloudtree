@@ -12,9 +12,11 @@ $ pip install git+https://github.com/takuti/cloudtree.git
 ### Usage
 
 ```py
-from cloudtree import to_wordcloud
-to_wordcloud(
-  'https://takuti.me/',
+from cloudtree import CloudTree
+
+tree = CloudTree('https://takuti.me/')
+tree.traverse()
+tree.to_wordcloud(
   width=3000,
   height=2000,
   random_state=1,
@@ -22,6 +24,7 @@ to_wordcloud(
   colormap='Pastel1',
   collocations=False
 )
+tree.save_wordcloud('wordcloud.png')
 ```
 
 Then you will see `wordcloud.png` in the directory.

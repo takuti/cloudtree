@@ -1,18 +1,18 @@
-url2wordcloud
+CloudTree
 ===
 
-Create wordcloud from URL
+Traverse a link tree given a root URL, and create a [word cloud](https://github.com/amueller/word_cloud).
 
 ### Installation
 
 ```sh
-$ pip install git+https://github.com/takuti/url2wordcloud.git
+$ pip install git+https://github.com/takuti/cloudtree.git
 ```
 
 ### Usage
 
 ```py
->>> from url2wordcloud import to_wordcloud
+>>> from cloudtree import to_wordcloud
 >>> to_wordcloud('https://takuti.me/')
 ```
 

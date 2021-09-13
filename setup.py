@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='url2wordcloud',
+    name='cloudtree',
     version='0.0.1',
-    description='Create wordcloud from URL',
+    description='Traverse a link tree given a root URL, and create a word cloud.',
     author='Takuya Kitazawa',
     author_email='k.takuti@gmail.com',
     license='MIT',
-    url='https://github.com/takuti/url2wordcloud',
+    url='https://github.com/takuti/cloudtree',
     packages=find_packages(exclude=['*tests*']),
     install_requires=[
         'wordcloud==1.8.1',

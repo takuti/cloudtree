@@ -16,7 +16,11 @@ def extract_all_links_under(root_url, soup):
             continue
 
 
-def to_wordcloud(root_url, max_depth=1, output_filename='wordcloud.png'):
+def to_wordcloud(
+        root_url,
+        max_depth=1,
+        output_filename='wordcloud.png',
+        **kwargs_wordcloud):
     visited = set()
     queue = [(0, root_url)]
 
@@ -47,13 +51,8 @@ def to_wordcloud(root_url, max_depth=1, output_filename='wordcloud.png'):
 
         texts.append(soup.get_text(' ', strip=True))
 
-    wordcloud = WordCloud(
-        width=3000,
-        height=2000,
-        random_state=1,
-        background_color='salmon',
-        colormap='Pastel1',
-        collocations=False,
-        stopwords=STOPWORDS
-    ).generate(' '.join(texts))
+    if 'stopwords' not in kwargs_wordcloud:
+        kwargs_wordcloud['stopwords'] = STOPWORDS
+    wordcloud = WordCloud(**kwargs_wordcloud).generate(' '.join(texts))
+
     wordcloud.to_file(output_filename)

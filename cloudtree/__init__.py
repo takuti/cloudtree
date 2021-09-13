@@ -11,12 +11,12 @@ class CloudTree(object):
         self.texts = None
         self.wordcloud = None
 
-    def traverse(self, max_depth=1):
+    def traverse(self, max_depth=1, max_nodes=100):
         visited = set()
         queue = [(0, self.root_url)]
 
         texts = []
-        while len(queue) > 0:
+        while len(queue) > 0 and len(texts) <= max_nodes:
             depth, url = queue.pop(0)
 
             if url in visited:

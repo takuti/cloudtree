@@ -16,7 +16,7 @@ def extract_all_links_under(root_url, soup):
             continue
 
 
-def run(root_url, max_depth=1, output_filename='wordcloud.png'):
+def to_wordcloud(root_url, max_depth=1, output_filename='wordcloud.png'):
     visited = set()
     queue = [(0, root_url)]
 
@@ -57,7 +57,3 @@ def run(root_url, max_depth=1, output_filename='wordcloud.png'):
         stopwords=STOPWORDS
     ).generate(' '.join(texts))
     wordcloud.to_file(output_filename)
-
-
-if __name__ == '__main__':
-    run('https://sustainability.fb.com/')

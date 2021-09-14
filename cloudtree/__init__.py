@@ -1,7 +1,9 @@
 import os
 import requests
+import numpy as np
+from PIL import Image
 from bs4 import BeautifulSoup
-from wordcloud import WordCloud, STOPWORDS
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from urllib.parse import urljoin
 
 
@@ -51,6 +53,16 @@ class CloudTree(object):
         if 'stopwords' not in kwargs:
             kwargs['stopwords'] = STOPWORDS
         self.wordcloud = WordCloud(**kwargs).generate(' '.join(self.texts))
+
+    def get_mask(self, filename):
+        return np.array(Image.open(filename))
+
+    def fit_mask_color(self):
+        assert self.wordcloud is not None and \
+            self.wordcloud.mask is not None, \
+            'call to_wordcloud(mask=mask) first'
+        image_colors = ImageColorGenerator(self.wordcloud.mask)
+        self.wordcloud = self.wordcloud.recolor(color_func=image_colors)
 
     def to_file(self, filename):
         ext = os.path.splitext(filename)[1]

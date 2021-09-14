@@ -16,15 +16,20 @@ from cloudtree import CloudTree
 
 tree = CloudTree('https://takuti.me/')
 tree.traverse()
-tree.to_wordcloud(
-  width=3000,
-  height=2000,
-  random_state=1,
-  background_color='salmon',
-  colormap='Pastel1',
-  collocations=False
-)
 tree.to_file('source.txt')
+
+mask = tree.get_mask('tree.png')
+tree.to_wordcloud(
+    width=800,
+    height=600,
+    random_state=1,
+    background_color='white',
+    colormap='Pastel1',
+    collocations=False,
+    max_font_size=64,
+    mask=mask
+)
+tree.fit_mask_color()
 tree.to_file('wordcloud.png')
 ```
 

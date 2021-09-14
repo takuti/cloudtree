@@ -13,7 +13,7 @@ class CloudTree(object):
         self.wordcloud = None
 
     def traverse(self, max_depth=1, max_nodes=100,
-                 ignore_tags=['script', 'style', 'header', 'footer']):
+                 ignore_tags=['script', 'style', 'header', 'footer', 'code']):
         visited = set()
         queue = [(0, self.root_url)]
 

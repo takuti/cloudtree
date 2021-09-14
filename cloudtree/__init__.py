@@ -12,7 +12,8 @@ class CloudTree(object):
         self.texts = None
         self.wordcloud = None
 
-    def traverse(self, max_depth=1, max_nodes=100):
+    def traverse(self, max_depth=1, max_nodes=100,
+                 ignore_tags=['script', 'style', 'header', 'footer']):
         visited = set()
         queue = [(0, self.root_url)]
 
@@ -38,7 +39,6 @@ class CloudTree(object):
                 urls = set(self.__extract_all_child_links(soup))
                 queue += [(depth + 1, u) for u in urls if u not in visited]
 
-            ignore_tags = ['script', 'style', 'header', 'footer']
             for script in soup.findAll(ignore_tags):
                 script.decompose()
 

@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 from wordcloud import WordCloud, STOPWORDS
@@ -51,10 +52,17 @@ class CloudTree(object):
             kwargs['stopwords'] = STOPWORDS
         self.wordcloud = WordCloud(**kwargs).generate(' '.join(self.texts))
 
-    def save_wordcloud(self, output_filename):
-        assert self.wordcloud is not None, 'call to_wordcloud() first'
-
-        self.wordcloud.to_file(output_filename)
+    def to_file(self, filename):
+        ext = os.path.splitext(filename)[1]
+        if ext == '.txt':
+            assert self.texts is not None, 'call traverse() first'
+            with open(filename, 'w') as f:
+                for text in self.texts:
+                    f.write(text)
+                    f.write('\n')
+        else:
+            assert self.wordcloud is not None, 'call to_wordcloud() first'
+            self.wordcloud.to_file(filename)
 
     def __extract_all_child_links(self, soup):
         for link in soup.findAll('a'):

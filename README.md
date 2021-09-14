@@ -24,7 +24,8 @@ tree.to_wordcloud(
   colormap='Pastel1',
   collocations=False
 )
-tree.save_wordcloud('wordcloud.png')
+tree.to_file('source.txt')
+tree.to_file('wordcloud.png')
 ```
 
-Then you will see `wordcloud.png` in the directory.
+Then you will see `source.txt` and `wordcloud.png` in the directory, which respectively represent a list of page contents and word cloud itself.

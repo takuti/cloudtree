@@ -7,6 +7,17 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from urllib.parse import urljoin
 
 
+DEFAULT_SKIP_TAGS = [
+    'head',
+    'script',
+    'style',
+    'header',
+    'nav',
+    'footer',
+    'code'
+]
+
+
 class CloudTree(object):
 
     def __init__(self, root_url):
@@ -15,7 +26,7 @@ class CloudTree(object):
         self.wordcloud = None
 
     def traverse(self, max_depth=1, max_nodes=100,
-                 ignore_tags=['script', 'style', 'header', 'footer', 'code']):
+                 skip_tags=DEFAULT_SKIP_TAGS):
         visited = set()
         queue = [(0, self.root_url)]
 
@@ -41,7 +52,7 @@ class CloudTree(object):
                 urls = set(self.__extract_all_child_links(soup))
                 queue += [(depth + 1, u) for u in urls if u not in visited]
 
-            for script in soup.findAll(ignore_tags):
+            for script in soup.findAll(skip_tags):
                 script.decompose()
 
             texts.append(soup.get_text(' ', strip=True))

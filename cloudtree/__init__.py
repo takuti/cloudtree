@@ -26,7 +26,7 @@ class CloudTree(object):
         self.texts = None
         self.wordcloud = None
 
-    def traverse(self, max_depth=1, max_nodes=100,
+    def traverse(self, max_depth=1, max_nodes=100, child_links_only=True,
                  skip_tags=DEFAULT_SKIP_TAGS, skip_selectors=[]):
         visited = set()
         queue = [(0, self.root_url)]
@@ -54,7 +54,7 @@ class CloudTree(object):
                 continue
 
             if depth < max_depth:
-                urls = set(self.__extract_all_child_links(soup))
+                urls = set(self.__extract_links(soup, child_links_only))
                 queue += [(depth + 1, u) for u in urls if u not in visited]
 
             for element in soup.find_all(skip_tags):
@@ -96,9 +96,13 @@ class CloudTree(object):
             assert self.wordcloud is not None, 'call to_wordcloud() first'
             self.wordcloud.to_file(filename)
 
-    def __extract_all_child_links(self, soup):
+    def __extract_links(self, soup, child_links_only):
         for link in soup.select('a[href]'):
             href = link.attrs['href']
+
+            if not child_links_only:
+                yield href
+                continue
 
             if href.startswith('/'):
                 yield urljoin(self.root_url, href)

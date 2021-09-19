@@ -13,6 +13,7 @@ DEFAULT_SKIP_TAGS = [
     'style',
     'header',
     'nav',
+    'aside',
     'footer',
     'code'
 ]

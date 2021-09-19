@@ -39,8 +39,12 @@ class CloudTree(object):
                 continue
             visited.add(url)
 
-            res = requests.get(url)
-            if not res.headers['Content-Type'].startswith('text/html'):
+            try:
+                res = requests.get(url)
+            except Exception:
+                continue
+            if 'Content-Type' not in res.headers or \
+                    not res.headers['Content-Type'].startswith('text/html'):
                 continue
             html = res.text
 

@@ -62,7 +62,7 @@ class CloudTree(object):
         assert self.texts is not None, 'call traverse() first'
 
         if 'stopwords' not in kwargs:
-            kwargs['stopwords'] = STOPWORDS
+            kwargs['stopwords'] = set(STOPWORDS)
         self.wordcloud = WordCloud(**kwargs).generate(' '.join(self.texts))
 
     def get_mask(self, filename):
